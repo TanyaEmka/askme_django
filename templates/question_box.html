@@ -1,0 +1,35 @@
+{% load static %}
+<article>
+  <div class="left_info">
+    <div class="avatar">
+      <img src="{% static 'images/avatar.svg' %}" />
+    </div>
+    <div class="likes">
+      <div class="img">
+        <img src="{% static 'images/like.svg' %}" />
+      </div>
+      <div class="name4">{{ element.likes }}</div>
+    </div>
+  </div>
+  <div class="content">
+    <div>
+      <a href="{% url 'question' element.id %}" style="text-decoration:none;"><span class="big_blue_href">{{ element.title }}</span></a>
+    </div>
+    <div class="question">
+      {{ element.text }}
+    </div>
+    <div class="other_info">
+      <div>
+        <span class="blue_href">Ответы ({{ element.answers }})</span>
+      </div>
+      <div>
+        <span>Теги:</span>
+        {% for tag in element.tags %}
+          <a href="{% url 'tag' tag.name %}" style="text-decoration:none;"><span class="tag">{{ tag.name }}</span></a>
+        {% empty %}
+          <span>Тегов нет</span>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</article>

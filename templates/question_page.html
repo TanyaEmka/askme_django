@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block hrefs %}
+  <link rel="stylesheet" type="text/css" href="{% static 'css/question.css' %}">
+{% endblock %}
+
+{% block content %}
+<article class="full_question">
+  <div class="top_info">
+    <div class="avatar">
+      <img src="{% static 'images/avatar.svg' %}" />
+    </div>
+    <div class="user_info">
+      <div class="bold_text3">{{ data.user.firstname }} {{ data.user.lastname }}</div>
+      <div class="comm_info">
+        <div class="likes">
+          <div class="img">
+            <img src="{% static 'images/like.svg' %}" />
+          </div>
+          <div class="name4">{{ data.question.likes }}</div>
+        </div>
+        <div class="data">
+          {{ data.question.date }}
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr></hr>
+  <div class="content">
+    <div>
+      <span class="bold_text2">{{ data.question.title }}</span>
+    </div>
+    <div class="question">
+      Мой вопрос заключается в том, что мне необходимо сделать кое-что интересное.
+      Я думаю над тем, как создать собственное веб-приложение. Не могли бы
+      посоветовать, какие технологии мне нужно изучить и с каких языков
+      программирования начать?
+    </div>
+    <div class="other_info">
+      <div>
+        <span>Теги:</span>
+        {% for tag in data.question.tags %}
+        <a href="{% url 'tag' tag.name %}" style="text-decoration:none;"><span class="tag">{{ tag.name }}</span></a>
+        {% empty %}
+          <span>Тегов нет</span>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</article>
+<div class="question_boxes">
+    {% for answer in data.answers %}
+      {% include 'answer.html' with element=answer %}
+    {% empty %}
+      <p class="header2">Ответов нет</p>
+    {% endfor %}
+</div>
+{% include 'paginator.html' with page_number=data.page %}
+<hr></hr>
+<div class="answer_form">
+  <div class="text_form">
+    <textarea
+            placeholder="Введите ответ"
+    ></textarea>
+  </div>
+  <div>
+    <input
+            class="blue_button"
+            type="button"
+            value="Ответить"
+    />
+  </div>
+</div>
+{% endblock %}
