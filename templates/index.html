@@ -13,5 +13,5 @@
         <div>Ничего не найдено</div>
     {% endfor %}
 </div>
-{% include 'paginator.html' with page_number=data.page %}
+{% include 'paginator.html' with page_obj=data.questions url_name='questions' %}
 {% endblock %}

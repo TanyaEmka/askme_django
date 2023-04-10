@@ -32,10 +32,7 @@
       <span class="bold_text2">{{ data.question.title }}</span>
     </div>
     <div class="question">
-      Мой вопрос заключается в том, что мне необходимо сделать кое-что интересное.
-      Я думаю над тем, как создать собственное веб-приложение. Не могли бы
-      посоветовать, какие технологии мне нужно изучить и с каких языков
-      программирования начать?
+      {{ data.question.text }}
     </div>
     <div class="other_info">
       <div>
@@ -56,7 +53,7 @@
       <p class="header2">Ответов нет</p>
     {% endfor %}
 </div>
-{% include 'paginator.html' with page_number=data.page %}
+{% include 'paginator.html' with page_obj=data.answers url_name='question' parameter=data.question.id %}
 <hr></hr>
 <div class="answer_form">
   <div class="text_form">

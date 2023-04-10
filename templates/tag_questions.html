@@ -12,5 +12,5 @@
         <div>Такого тега не существует</div>
     {% endfor %}
 </div>
-{% include 'paginator.html' with page_number=data.page %}
+{% include 'paginator.html' with page_obj=data.questions url_name='tag' parameter=data.tag.name %}
 {% endblock %}

@@ -16,7 +16,11 @@
       <a href="{% url 'question' element.id %}" style="text-decoration:none;"><span class="big_blue_href">{{ element.title }}</span></a>
     </div>
     <div class="question">
-      {{ element.text }}
+      {% if element.text|length > 75 %}
+        {{ element.text|truncatechars:76 }}
+      {% else %}
+        {{ element.text }}
+      {% endif %}
     </div>
     <div class="other_info">
       <div>
