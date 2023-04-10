@@ -12,30 +12,17 @@ def tag_questions(request, tag):
         context_questions = functions.get_tag_questions(models.QUESTIONS, full_tag['id'])
     if full_tag == {}:
         full_tag = {'id': 0, 'name': tag}
-    paginator = Paginator(context_questions, 10)
-    page_number = request.GET.get('page')
-    if page_number is None:
-        page_number = 1
     context = {'data': {
-        'questions': paginator.get_page(page_number),
+        'questions': functions.get_page_data(context_questions, 10, request.GET.get('page')),
         'tag': full_tag,
-        'page': page_number,
     }}
     return render(request, 'tag_questions.html', context)
 
 
 def questions_page(request):
-    paginator = Paginator(models.QUESTIONS, 10)
-    page_number = request.GET.get('page')
-    if page_number is None:
-        page_number = 1
-    context_questions = paginator.get_page(page_number)
-    for i in range(len(context_questions)):
-        if len(context_questions[i]['text']) > 75:
-            context_questions[i]['text'] = context_questions[i]['text'][0:75] + '...'
+    context_questions = functions.get_page_data(models.QUESTIONS, 10, request.GET.get('page'))
     context = {'data': {
         'questions': context_questions,
-        'page': page_number,
     }}
     return render(request, 'index.html', context)
 
@@ -70,14 +57,9 @@ def question_page(request, question_id):
         if answer['question'] == question_id:
             context_answers.append(answer)
 
-    paginator = Paginator(context_answers, 5)
-    page_number = request.GET.get('page')
-    if page_number is None:
-        page_number = 1
     context = {'data': {
         'question': context_question,
         'user': context_user,
-        'answers': paginator.get_page(page_number),
-        'page': page_number
+        'answers': functions.get_page_data(context_answers, 5, request.GET.get('page')),
     }}
     return render(request, 'question_page.html', context)

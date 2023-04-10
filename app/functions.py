@@ -1,4 +1,12 @@
 from app import models
+from django.core.paginator import Paginator
+
+
+def get_page_data(data, page_count, page_number):
+    paginator = Paginator(data, page_count)
+    if page_number is None:
+        page_number = 1
+    return paginator.get_page(page_number)
 
 
 def get_tag_questions(questions, tag_id):
