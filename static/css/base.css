@@ -2,13 +2,6 @@ html, html input {
     font-family: "Courier New", monospace;
 }
 
-* a {
-    text-decoration: none;
-    cursor: default;
-    pointer-events: none;
-    text-decoration: none;
-}
-
 body {
     box-sizing: border-box;
     margin: 0 auto;
